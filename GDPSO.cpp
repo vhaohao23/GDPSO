@@ -10,7 +10,7 @@ const int N=100;
 const double c1=1.4961,c2=1.4961;
 const double w=0.7298;
 
-int T=100;
+int T=30;
 
 int n,m;
 vector<vector<int>> E;
@@ -19,9 +19,9 @@ vector<vector<int>> Pb(N+1);
 vector<int> Pg;
 vector<double> Q(N+1,0);
 vector<double> Qb(N+1,0);
-vector<vector<double>> V;
-
 double Qg=0;
+
+vector<vector<double>> V;
 vector<double> k;
 vector<vector<double>> A;
 
@@ -151,11 +151,11 @@ vector<double> merge(vector<double> v1,vector<double> v2){
 }
 
 void keyOperator(int t){
-    bool dd[n+1]={};
 
     rep(k,1,n,1) {
         
         if (V[t][k]==1) {
+            bool dd[n+1]={};
             // Find the community with largest modularity increment among neighbors
             int best_community = P[t][k];
             double best_increment = 0;
@@ -198,15 +198,15 @@ void keyOperator(int t){
 void GDPSO(){
     initialization();
 
-    while (T--){
-
-        //standardization
-        rep(i,1,N,1){
+    //standardization
+    rep(i,1,N,1){
             standardization(P[i]);
             standardization(Pb[i]);
-        }
-        standardization(Pg);
+    }
+    standardization(Pg);
+    cout<<Qg<<"\n";
 
+    while (T--){
         //update each particle
         uniform_real_distribution<double> randR(0.0,1);
         rep(i,1,N,1){
@@ -226,6 +226,13 @@ void GDPSO(){
             keyOperator(i);
         }
         
+
+        // standardization
+        rep(i,1,N,1){
+            standardization(P[i]);
+            standardization(Pb[i]);
+        }
+        standardization(Pg);
 
         //calculate fitness and update the personal best and global best positions
         rep(i,1,N,1){
@@ -247,12 +254,12 @@ void GDPSO(){
 
 int main(){
     freopen("input.txt","r",stdin);
-    freopen("output.txt","w",stdout);
+    // freopen("output.txt","w",stdout);
 
     cin>>n>>m;
 
     E.resize(n+1);
-    k.resize(n+1);  
+    k.resize(n+1,0);  
     A.resize(n+1,vector<double>(n+1,0));
     V.resize(N+1,vector<double>(n+1,0));
 
