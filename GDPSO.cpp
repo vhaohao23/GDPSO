@@ -10,7 +10,7 @@ const int N=100;
 const double c1=1.4961,c2=1.4961;
 const double w=0.7298;
 
-int T=30;
+int T=100;
 
 int n,m;
 vector<vector<int>> E;
