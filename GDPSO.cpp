@@ -250,7 +250,9 @@ void GDPSO(){
 }
 
 int main(){
-    freopen("input.txt","r",stdin);
+    clock_t tStart = clock();
+
+    freopen("/home/vhaohao/hao/nckh/dataset-community/karate.txt","r",stdin);
     // freopen("output.txt","w",stdout);
 
     cin>>n>>m;
@@ -270,4 +272,7 @@ int main(){
     }
 
     GDPSO();
+
+    printf("\nTime taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
+
 }
